@@ -22,10 +22,10 @@ app.engine("handlebars", exhbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 //Connecting to mongoose
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 //Routes
-require("./routes/handlebarsRoutes");
-require("./routes/handlebarsRoutes");
+require("./routes/handlebarsRoutes")(app);
+require("./routes/apiRoutes")(app);
 //Start server
 app.listen(PORT, () => {
   console.log("App listening on port " + PORT + "!");
