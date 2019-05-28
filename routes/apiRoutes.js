@@ -1,4 +1,5 @@
 const axios = require("axios");
+const db = require("../models");
 const cheerio = require("cheerio");
 module.exports = (app) => {
   app.get("/scrape", (req, res) => {
@@ -44,8 +45,16 @@ module.exports = (app) => {
           });
         }
       }
+      //Looping through distinctArray to create BSON's in database
+      distinctArray.forEach((story) => {
+        db.Article.create(story).then((dbStory) => {
+          console.log(dbStory);
+        }).catch((err) => {
+          console.error(err);
+        });
+      });
       //Logging the results.
-      console.log(distinctArray);
+      //console.log(distinctArray);
     });
     res.send("Scrape Complete!");
   });
