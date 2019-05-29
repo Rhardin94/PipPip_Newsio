@@ -2,7 +2,7 @@ const axios = require("axios");
 const db = require("../models");
 const cheerio = require("cheerio");
 module.exports = (app) => {
-  app.get("/scrape", (req, res) => {
+  app.get("/api/scrape", (req, res) => {
     //Get request to retrieve data for cheerio scrape
     axios.get("https://www.bbc.com/news/world").then((response) => {
       //syncing cheerio with reponse
@@ -48,14 +48,20 @@ module.exports = (app) => {
       //Looping through distinctArray to create BSON's in database
       distinctArray.forEach((story) => {
         db.Article.create(story).then((dbStory) => {
-          console.log(dbStory);
+          //console.log(dbStory);
         }).catch((err) => {
-          console.error(err);
+          res.json(err);
         });
       });
       //Logging the results.
       //console.log(distinctArray);
     });
-    res.send("Scrape Complete!");
+  });
+  app.delete("/api/clear", (req, res) => {
+    db.Article.deleteMany({}).then(() => {
+    }).catch((err) => {
+      res.json(err);
+    });
+    res.redirect("/");
   });
 };
