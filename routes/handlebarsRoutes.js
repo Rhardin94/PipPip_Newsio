@@ -11,7 +11,9 @@ module.exports = function (app) {
   });
   app.get("/saved", (req, res) => {
     db.Article.find({saved:true}).populate("notes").then((result) => {
-      res.json(result);
+      res.render("index", {
+        stories: result
+      });
     }).catch((err) => {
       res.json(err);
     });

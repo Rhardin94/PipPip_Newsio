@@ -6,6 +6,15 @@ $(document).ready(() => {
       location.reload();
     });
   });
+  //On-click to save article
+  $(".save").on("click", () => {
+    $.ajax({
+      url: "/api/save",
+      method: "PUT"
+    }).then(() => {
+      console.log("Article Saved!");
+    });
+  });
   //On-click that clears all existing articles
   $(".clear").on("click", (event) => {
     $.ajax({

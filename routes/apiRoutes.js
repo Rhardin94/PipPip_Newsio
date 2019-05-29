@@ -2,6 +2,7 @@ const axios = require("axios");
 const db = require("../models");
 const cheerio = require("cheerio");
 module.exports = (app) => {
+  //Get route for initiating scrape
   app.get("/api/scrape", (req, res) => {
     //Get request to retrieve data for cheerio scrape
     axios.get("https://www.bbc.com/news/world").then((response) => {
@@ -57,11 +58,17 @@ module.exports = (app) => {
       //console.log(distinctArray);
     });
   });
+  //Delete request to clear DB of articles
   app.delete("/api/clear", (req, res) => {
     db.Article.deleteMany({}).then(() => {
+      res.redirect("/");
     }).catch((err) => {
       res.json(err);
     });
-    res.redirect("/");
   });
+  app.put("/api/save/:id", (req, res) => {
+    db.Article.updateOne({_id:mongoose.Types.ObjectId(req.params.id)}, {saved: true}).then(() => {
+      
+    })
+  })
 };
