@@ -1,6 +1,8 @@
+//Routing dependencies
 const axios = require("axios");
 const db = require("../models");
 const cheerio = require("cheerio");
+const mongoose = require("mongoose");
 module.exports = (app) => {
   //Get route for initiating scrape
   app.get("/api/scrape", (req, res) => {
@@ -59,17 +61,20 @@ module.exports = (app) => {
       //console.log(distinctArray);
     });
   });
-  //Delete request to clear DB of articles
+  //Delete route to clear DB of articles
   app.delete("/api/clear", (req, res) => {
     db.Article.deleteMany({}).then(() => {
     location.reload();
-    }).catch((err) => {
+    }).catch(err => {
       res.json(err);
     });
   });
+  //Put route for saving an article
   app.put("/api/save/:id", (req, res) => {
-    db.Article.updateOne({_id:mongoose.Types.ObjectId(req.params.id)}, {saved: true}).then(() => {
-      
-    })
-  })
+    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$set: {saved: true}}).then(() => {
+      location.reload();
+    }).catch(err => {
+      res.json(err);
+    });
+  });
 };

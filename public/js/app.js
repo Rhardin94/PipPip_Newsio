@@ -8,9 +8,9 @@ $(document).ready(() => {
   });
   //On-click to save article
   $(".save").on("click", () => {
-    $.ajax({
-      url: "/api/save",
-      method: "PUT"
+    const id = $(this).data("id");
+    $.ajax("/api/save/" + id, {
+      method: "PUT",
     }).then(() => {
       console.log("Article Saved!");
     });
