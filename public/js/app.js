@@ -21,6 +21,7 @@ $(document).ready(() => {
       url: "/api/clear",
       method: "DELETE"
     }).then(() => {
+      location.reload();
     });
   });
-})
+});

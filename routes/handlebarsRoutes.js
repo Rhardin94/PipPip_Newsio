@@ -1,5 +1,5 @@
 const db = require("../models");
-module.exports = function (app) {
+module.exports = app => {
   app.get("/", (req, res) => {
     db.Article.find({}).populate("notes").then((result) => {
       res.render("index", {

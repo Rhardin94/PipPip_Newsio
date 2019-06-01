@@ -49,6 +49,7 @@ module.exports = (app) => {
       //Looping through distinctArray to create BSON's in database
       distinctArray.forEach((story) => {
         db.Article.create(story).then((dbStory) => {
+          res.json(dbStory);
           //console.log(dbStory);
         }).catch((err) => {
           res.json(err);
@@ -61,7 +62,7 @@ module.exports = (app) => {
   //Delete request to clear DB of articles
   app.delete("/api/clear", (req, res) => {
     db.Article.deleteMany({}).then(() => {
-      res.redirect("/");
+    location.reload();
     }).catch((err) => {
       res.json(err);
     });
