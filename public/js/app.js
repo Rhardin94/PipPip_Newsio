@@ -8,7 +8,7 @@ $(document).ready(() => {
   });
   //On-click to save article
   $(".save").on("click", () => {
-    const id = $(this).data("id");
+    const id = $(this).attr("data-id");
     $.ajax("/api/save/" + id, {
       method: "PUT",
     }).then(() => {
