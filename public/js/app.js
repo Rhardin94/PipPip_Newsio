@@ -1,4 +1,7 @@
 $(document).ready(() => {
+  if (!$(".articles").length) {
+    $(".artHeader").append("No Articles Yet! Scrape some above via 'Scrape New Articles' button or save some to favorites!");
+  };
   //On-click that scrapes for new articles
   $(".scrape").on("click", () => {
     $.get("/api/scrape", () => {
@@ -9,20 +12,21 @@ $(document).ready(() => {
   //On-click to save article
   $(".save").on("click", function() {
     const id = $(this).attr("data-id");
-    const savedState = $(this).attr("saved");
-    if (savedState === false) {
-      $(".save").text("Save Artcile!");
-      savedState = true;
-    } else {
-      $(".save").text("Un-save Article!");
-      savedState = false;
-    };
-    console.log($(this));
     $.ajax("/api/save/" + id, {
       method: "PUT",
-      data: savedState
     }).then(() => {
       console.log("Article Saved!");
+      location.reload();
+    });
+  });
+  //On-click to unsave article
+  $(".unsave").on("click", function() {
+    const id = $(this).attr("data-id");
+    $.ajax("/api/unsave/" + id, {
+      method: "PUT"
+    }).then(() => {
+      console.log("Article Unsaved!");
+      location.reload();
     });
   });
   //On-click that clears all existing articles

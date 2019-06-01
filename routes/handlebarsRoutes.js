@@ -12,7 +12,7 @@ module.exports = app => {
   });
   app.get("/saved", (req, res) => {
     db.Article.find({saved:true}).populate("notes").then((result) => {
-      res.render("index", {
+      res.render("saved", {
         stories: result
       });
     }).catch((err) => {
