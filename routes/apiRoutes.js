@@ -78,10 +78,18 @@ module.exports = (app) => {
       res.json(err);
     });
   });
+  //Put route for unsaving an article
   app.put("/api/unsave/:id", (req, res) => {
     db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$set: {saved: false}}).then(() => {
       location.reload();
     }).catch(err => {
+      res.json(err);
+    });
+  });
+  //Post route for adding note to an article
+  app.post("/saved/:id", (req, res) => {
+    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: {note: req.body}}, {new: true}.then(() => {
+    })).catch(err => {
       res.json(err);
     });
   });
