@@ -7,10 +7,20 @@ $(document).ready(() => {
     });
   });
   //On-click to save article
-  $(".save").on("click", () => {
+  $(".save").on("click", function() {
     const id = $(this).attr("data-id");
+    const savedState = $(this).attr("saved");
+    if (savedState === false) {
+      $(".save").text("Save Artcile!");
+      savedState = true;
+    } else {
+      $(".save").text("Un-save Article!");
+      savedState = false;
+    };
+    console.log($(this));
     $.ajax("/api/save/" + id, {
       method: "PUT",
+      data: savedState
     }).then(() => {
       console.log("Article Saved!");
     });

@@ -72,7 +72,7 @@ module.exports = (app) => {
   //Put route for saving an article
   app.put("/api/save/:id", (req, res) => {
     console.log(req.params.id);
-    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$set: {saved: true}}).then(() => {
+    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$set: {saved: req.body.saved}}).then(() => {
       location.reload();
     }).catch(err => {
       res.json(err);

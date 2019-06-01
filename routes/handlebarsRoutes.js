@@ -2,7 +2,7 @@
 const db = require("../models");
 module.exports = app => {
   app.get("/", (req, res) => {
-    db.Article.find({}).populate("notes").then((result) => {
+    db.Article.find({saved: false}).populate("notes").then((result) => {
       res.render("index", {
         stories: result
       });
