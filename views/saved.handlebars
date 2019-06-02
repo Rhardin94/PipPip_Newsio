@@ -4,7 +4,6 @@
     <p class="text-center">Get your news fast! Worthy of the Royal Family!</p>
     <hr>
     <div class="buttons text-center">
-      <button class="btn btn-primary scrape text-white" role="button">Scrape New Articles!</button>
       <a href="/"><button class="btn btn-secondary saved text-white" role="button">All Articles!</button></a>
       <button class="btn btn-danger clear text-white" role="button">Clear Articles!</button>
     </div>
@@ -43,10 +42,12 @@
             </div>
             {{#each stories}}
             <form method="POST" action="/saved/:id" class="border border-danger p-2 bg-dark text-white">
-              <label for="noteHeader">Header:</label>
+              <label for="noteHeader" class="header">Header:</label>
+              <br>
               <input class="form-group title" name="noteHeader">
               <br>
-              <label for="noteMessage">Message:</label>
+              <label for="noteMessage" class="message">Message:</label>
+              <br>
               <textarea class="form-group body" name="noteMessage" rows="5"></textarea>
               <br>
               <input type="submit" class="btn btn-primary saveNote" value="Save Note" data-id="{{_id}}">

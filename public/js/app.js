@@ -42,8 +42,10 @@ $(document).ready(() => {
   $(".note").on("click", function () {
     let storyId = $(this).attr("data-id");
     $(".prevNotes").empty();
-    $(".title").empty();
-    $(".body").empty();
+    $(".header").text("Header:");
+    $(".message").text("Message:");
+    $(".title").val("");
+    $(".body").val("");
     $.get("/articles/" + storyId, function(data) {
       //console.log(data);
     }).then(function (response) {
@@ -73,6 +75,7 @@ $(document).ready(() => {
     const thisId = $(this).attr("data-id");
     if ((!$(".title").val()) || (!$(".body").val())) {
       $("label").text("You need both a note header and a message!");
+      return;
     };
     const newNote = {
       title: $(".title").val().trim(),
@@ -84,8 +87,8 @@ $(document).ready(() => {
       data: newNote
     }).then(function(data) {
       console.log(data);
-      $(".title").empty();
-      $(".body").empty();
+      $(".title").val("");
+      $(".body").val("");
       $("#note-modal").modal("toggle");
     });
   });
@@ -97,7 +100,7 @@ $(document).ready(() => {
       url: "/api/note/" + noteId
     }).then((response) => {
       console.log(response);
-      
+      $("#note-modal").modal("toggle");
     });
   });
 });
