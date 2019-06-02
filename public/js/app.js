@@ -5,7 +5,10 @@ $(document).ready(() => {
   };
   //On-click that scrapes for new articles
   $(".scrape").on("click", () => {
-    $.get("/api/scrape", () => {}).then(() => {
+    $("#scrape-modal").modal("toggle");
+    $.get("/api/scrape", () => {
+    }).then(response => {
+      $(".scrapeMessage").text("Scrape complete!");
       location.reload();
     });
   });
