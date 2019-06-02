@@ -3,8 +3,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 //Creating new UserSchema object
 const NoteSchema = new Schema({
-  title: String,
-  body: String
+  title: {
+    type: String,
+    required: true
+  },
+  body: {
+    type: String,
+    required: true
+  }
 });
 //Creating note model from NoteSchema
 const Note = mongoose.model("Note", NoteSchema);

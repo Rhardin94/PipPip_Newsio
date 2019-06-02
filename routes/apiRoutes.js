@@ -24,7 +24,7 @@ module.exports = (app) => {
         result.url = $(element).children("a").attr("href");
         //Checking scrape results to filter out empty headlines, empty summaries, and catching url's without first part of url
         if ((result.headline !== "") && (result.summary !== "") && (!result.url.includes("https://"))) {
-        //Prepending first part of url to each result.url for functioning links  
+          //Prepending first part of url to each result.url for functioning links  
           result.url = "https://www.bbc.com" + result.url;
           resArray.push(result);
         }
@@ -53,18 +53,16 @@ module.exports = (app) => {
         db.Article.create(story).then((dbStory) => {
           res.json(dbStory);
           //console.log(dbStory);
-        }).catch((err) => {
-          res.json(err);
         });
+      }).catch((err) => {
+        res.json(err);
       });
-      //Logging the results.
-      //console.log(distinctArray);
     });
   });
   //Delete route to clear DB of articles
   app.delete("/api/clear", (req, res) => {
     db.Article.deleteMany({}).then(() => {
-    location.reload();
+      location.reload();
     }).catch(err => {
       res.json(err);
     });
@@ -72,7 +70,13 @@ module.exports = (app) => {
   //Put route for saving an article
   app.put("/api/save/:id", (req, res) => {
     console.log(req.params.id);
-    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$set: {saved: true}}).then(() => {
+    db.Article.findOneAndUpdate({
+      _id: mongoose.Types.ObjectId(req.params.id)
+    }, {
+      $set: {
+        saved: true
+      }
+    }).then(() => {
       location.reload();
     }).catch(err => {
       res.json(err);
@@ -80,7 +84,13 @@ module.exports = (app) => {
   });
   //Put route for unsaving an article
   app.put("/api/unsave/:id", (req, res) => {
-    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$set: {saved: false}}).then(() => {
+    db.Article.findOneAndUpdate({
+      _id: mongoose.Types.ObjectId(req.params.id)
+    }, {
+      $set: {
+        saved: false
+      }
+    }).then(() => {
       location.reload();
     }).catch(err => {
       res.json(err);
@@ -89,7 +99,15 @@ module.exports = (app) => {
   //Post route for adding note to an article
   app.post("/saved/:id", (req, res) => {
     db.Note.create(req.body).then(dbNote => {
-      return db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: {notes: dbNote}}, {new: true});
+      return db.Article.findOneAndUpdate({
+        _id: mongoose.Types.ObjectId(req.params.id)
+      }, {
+        $push: {
+          notes: dbNote
+        }
+      }, {
+        new: true
+      });
     }).then((dbArticle) => {
       res.json(dbArticle);
     }).catch((err) => {
@@ -98,8 +116,18 @@ module.exports = (app) => {
   });
   //Get route for specific article
   app.get("/articles/:id", (req, res) => {
-    db.Article.findOne({_id: mongoose.Types.ObjectId(req.params.id)}).populate("notes").then((result) => {
+    db.Article.findOne({
+      _id: mongoose.Types.ObjectId(req.params.id)
+    }).populate("notes").then((result) => {
       res.json(result);
+    }).catch((err) => {
+      res.json(err);
+    });
+  });
+  //Delete route for deleting specific note from article and db
+  app.delete("/api/note/:id", (req, res) => {
+    db.Note.deleteOne({_id: mongoose.Types.ObjectId(req.params.id)}).then((response) => {
+      res.json(response);
     }).catch((err) => {
       res.json(err);
     });

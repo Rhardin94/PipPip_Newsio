@@ -45,19 +45,21 @@ $(document).ready(() => {
     $(".title").empty();
     $(".body").empty();
     $.get("/articles/" + storyId, function(data) {
-      console.log(data);
+      //console.log(data);
     }).then(function (response) {
       if (response.notes.length < 1) {
         $(".prevNotes").append("<h2> No notes yet! </h2>");
       } else {
         const notes = response.notes;
         notes.forEach(function (note) {
-          const noteDiv = $("<div>").addClass("noteDiv");
+          const noteId = note._id;
+          const noteDiv = $("<div>").addClass("noteDiv border border-danger p-2 bg-dark text-white m-1");
           noteDiv.attr(storyId);
           const noteHead = $("<h3>").text(note.title);
           const noteBody = $("<p>").text(note.body);
           const delNote = $("<button>").text("Delete Note!");
           delNote.addClass("btn btn-danger delete");
+          delNote.attr("noteid", noteId);
           noteDiv.append(noteHead, noteBody, delNote);
           $(".prevNotes").append(noteDiv);
         });
@@ -84,7 +86,18 @@ $(document).ready(() => {
       console.log(data);
       $(".title").empty();
       $(".body").empty();
+      $("#note-modal").modal("toggle");
     });
   });
   //On-click that deletes note from Article's notes array and from DB
+  $(document.body).on("click", ".delete", function() {
+    const noteId = $(this).attr("noteid");
+    $.ajax({
+      method: "DELETE",
+      url: "/api/note/" + noteId
+    }).then((response) => {
+      console.log(response);
+      
+    });
+  });
 });
