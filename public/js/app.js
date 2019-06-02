@@ -38,6 +38,15 @@ $(document).ready(() => {
       location.reload();
     });
   });
+  //On-click that clears all saved articles
+  $(".clearSaved").on("click", function() {
+    $.ajax({
+      url: "/api/clearsaved",
+      method: "DELETE"
+    }).then(() => {
+      location.reload();
+    })
+  })
   //On-click for viewing/creating notes
   $(".note").on("click", function () {
     let storyId = $(this).attr("data-id");

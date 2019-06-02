@@ -59,9 +59,17 @@ module.exports = (app) => {
       });
     });
   });
-  //Delete route to clear DB of articles
+  //Delete route to clear unsaved of articles
   app.delete("/api/clear", (req, res) => {
-    db.Article.deleteMany({}).then(() => {
+    db.Article.deleteMany({saved: false}).then(() => {
+      location.reload();
+    }).catch(err => {
+      res.json(err);
+    });
+  });
+  //Delete route to clear saved articles
+  app.delete("/api/clearsaved", (req, res) => {
+    db.Article.deleteMany({saved: true}).then(() => {
       location.reload();
     }).catch(err => {
       res.json(err);
