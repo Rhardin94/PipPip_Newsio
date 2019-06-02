@@ -1,7 +1,7 @@
 $(document).ready(() => {
   if (!$(".articles").length) {
     $(".artHeader").append("No Articles Yet! Scrape some above via 'Scrape New Articles' button!");
-    $(".artHeader2").append("No Articles Yet! Scrape some above via 'Scrape New Articles' button or save some to favorites on 'All Articles' page!");
+    $(".artHeader2").append("No Articles Yet! Navigate to the homepage and scrape some articles then save them to favorites on 'All Articles' page!");
   };
   //On-click that scrapes for new articles
   $(".scrape").on("click", () => {

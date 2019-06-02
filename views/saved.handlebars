@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="jumbotron bg-dark text-danger">
+  <div class="jumbotron bg-dark text-danger border border-primary">
     <h1 class="text-center">Union-Jack Mongo Scraper!</h1>
     <p class="text-center">Get your news fast! Worthy of the Royal Family!</p>
     <hr>
     <div class="buttons text-center">
-      <a href="/"><button class="btn btn-secondary saved text-white" role="button">All Articles!</button></a>
-      <button class="btn btn-danger clear text-white" role="button">Clear Articles!</button>
+      <a href="/"><button class="btn btn-secondary saved text-white m-1" role="button">All Articles!</button></a>
+      <button class="btn btn-danger clear text-white m-1" role="button">Clear Articles!</button>
     </div>
   </div>
   <div class="row bg-dark border border-danger m-1 p-1">
@@ -14,7 +14,7 @@
     </div>
     {{#each stories}}
     <div class="col-lg-4 articles">
-      <div class="card m-2">
+      <div class="card m-2 border border-primary">
         <div class="card-body">
           <a href="{{url}}" target="_blank"><h3 class="card-title">{{headline}}</h3></a>
           <hr>
@@ -44,11 +44,11 @@
             <form method="POST" action="/saved/:id" class="border border-danger p-2 bg-dark text-white">
               <label for="noteHeader" class="header">Header:</label>
               <br>
-              <input class="form-group title" name="noteHeader">
+              <input class="form-group title border border-primary bg-danger" name="noteHeader">
               <br>
               <label for="noteMessage" class="message">Message:</label>
               <br>
-              <textarea class="form-group body" name="noteMessage" rows="5"></textarea>
+              <textarea class="form-group body border border-danger bg-primary" name="noteMessage" rows="5"></textarea>
               <br>
               <input type="submit" class="btn btn-primary saveNote" value="Save Note" data-id="{{_id}}">
             </form>
