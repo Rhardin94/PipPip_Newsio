@@ -54,9 +54,9 @@ module.exports = (app) => {
           res.json(dbStory);
           //console.log(dbStory);
         });
-      }).catch((err) => {
-        res.json(err);
       });
+    }).catch(err => {
+      console.error(err);
     });
   });
   //Delete route to clear unsaved of articles

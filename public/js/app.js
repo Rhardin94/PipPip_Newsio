@@ -6,9 +6,14 @@ $(document).ready(() => {
   //On-click that scrapes for new articles
   $(".scrape").on("click", () => {
     $("#scrape-modal").modal("toggle");
+    $(".scrapeMessage").html("<h2> Scraping....</h2>");
+    if ($(".articles").length) {
+      $(".scrapeMessage").html("<h2> You already scraped recently! <h2>");
+      return;
+    }
     $.get("/api/scrape", () => {
     }).then(response => {
-      $(".scrapeMessage").text("Scrape complete!");
+      $(".scrapeMessage").html(" <h2> Scrape complete! <h2>");
       location.reload();
     });
   });
