@@ -1,6 +1,8 @@
 # PipPip_Newsio 
 ## Overview
-    PipPip_Newsio is a cheerio-powered news scraping app that interacts with MongoDB to bring the user the latest news. It allows the user to scrape for the latest articles and save articles that they don't wish to be deleted over prolonged use. It also allows the user to leave notes on each article sharing their thoughts and feelings about each story. Each article also contains a link to its site of origin.
+    PipPip_Newsio is a cheerio-powered news scraping app that interacts with MongoDB to bring the user the latest news. 
+    ..It allows the user to scrape for the latest articles and save articles that they don't wish to be deleted over prolonged use. ..It also allows the user to leave notes on each article sharing their thoughts and feelings about each story. 
+    ..Each article also contains a link to its site of origin.
 ## Tech
  This app utilizes:
  * [MongoDB](https://www.mongodb.com/)
