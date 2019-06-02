@@ -27,6 +27,7 @@
     {{/each}}
   </div>
   <!--Modal-->
+  {{#each stories}}
   <div class="modal fade" id="note-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -40,7 +41,6 @@
             <div class="prevNotes">
               <h2>Previous Notes:</h2>
             </div>
-            {{#each stories}}
             <form method="POST" action="/saved/:id" class="border border-danger p-2 bg-dark text-white">
               <label for="noteHeader" class="header">Header:</label>
               <br>
