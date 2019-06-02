@@ -5,13 +5,12 @@ $(document).ready(() => {
   };
   //On-click that scrapes for new articles
   $(".scrape").on("click", () => {
-    $.get("/api/scrape", () => {
-    }).then(() => {
+    $.get("/api/scrape", () => {}).then(() => {
       location.reload();
     });
   });
   //On-click to save article
-  $(".save").on("click", function() {
+  $(".save").on("click", function () {
     const id = $(this).attr("data-id");
     $.ajax("/api/save/" + id, {
       method: "PUT",
@@ -21,7 +20,7 @@ $(document).ready(() => {
     });
   });
   //On-click to unsave article
-  $(".unsave").on("click", function() {
+  $(".unsave").on("click", function () {
     const id = $(this).attr("data-id");
     $.ajax("/api/unsave/" + id, {
       method: "PUT"
@@ -40,31 +39,52 @@ $(document).ready(() => {
     });
   });
   //On-click for viewing/creating notes
-  $(".note").on("click", function() {
+  $(".note").on("click", function () {
     let storyId = $(this).attr("data-id");
     $(".prevNotes").empty();
-    // $(this).notes.forEach(function(note) {
-    //   const noteDiv = $("<div>").addClass("noteDiv");
-    //   noteDiv.attr(storyId);
-    //   const noteHead = $("<h3>").text(note.title);
-    //   const noteBody = $("<p>").text(note.body);
-    //   const delNote = $("<button>").text("Delete Note!");
-    //   delNote.addClass("btn btn-danger");
-    //   noteDiv.append(noteHead, noteBody, delNote);
-    //   $(".prevNotes").append(noteDiv);
-    // });
+    $(".title").empty();
+    $(".body").empty();
+    $.get("/articles/" + storyId, function(data) {
+      console.log(data);
+    }).then(function (response) {
+      if (response.notes.length < 1) {
+        $(".prevNotes").append("<h2> No notes yet! </h2>");
+      } else {
+        const notes = response.notes;
+        notes.forEach(function (note) {
+          const noteDiv = $("<div>").addClass("noteDiv");
+          noteDiv.attr(storyId);
+          const noteHead = $("<h3>").text(note.title);
+          const noteBody = $("<p>").text(note.body);
+          const delNote = $("<button>").text("Delete Note!");
+          delNote.addClass("btn btn-danger delete");
+          noteDiv.append(noteHead, noteBody, delNote);
+          $(".prevNotes").append(noteDiv);
+        });
+      }
+    });
     $("#note-modal").modal("toggle");
   });
+  //On-click that submits new note to article
+  $(".saveNote").on("click", function (event) {
+    event.preventDefault();
+    const thisId = $(this).attr("data-id");
+    if ((!$(".title").val()) || (!$(".body").val())) {
+      $("label").text("You need both a note header and a message!");
+    };
+    const newNote = {
+      title: $(".title").val().trim(),
+      body: $(".body").val().trim()
+    };
+    $.ajax({
+      method: "POST",
+      url: "/saved/" + thisId,
+      data: newNote
+    }).then(function(data) {
+      console.log(data);
+      $(".title").empty();
+      $(".body").empty();
+    });
+  });
+  //On-click that deletes note from Article's notes array and from DB
 });
-//On-click that submits new note to article
-$(".saveNote").on("click", function(event) {
-  event.preventDefault();
-  let newNote = {
-    title: $(".title").val().trim(),
-    body: $(".body").val().trim()
-  };
-  $.post("/saved/:id", newNote, () => {
-    let storyId;
-
-  })
-})

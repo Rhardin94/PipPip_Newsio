@@ -88,8 +88,19 @@ module.exports = (app) => {
   });
   //Post route for adding note to an article
   app.post("/saved/:id", (req, res) => {
-    db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: {note: req.body}}, {new: true}.then(() => {
-    })).catch(err => {
+    db.Note.create(req.body).then(dbNote => {
+      return db.Article.findOneAndUpdate({_id: mongoose.Types.ObjectId(req.params.id)}, {$push: {notes: dbNote}}, {new: true});
+    }).then((dbArticle) => {
+      res.json(dbArticle);
+    }).catch((err) => {
+      res.json(err);
+    });
+  });
+  //Get route for specific article
+  app.get("/articles/:id", (req, res) => {
+    db.Article.findOne({_id: mongoose.Types.ObjectId(req.params.id)}).populate("notes").then((result) => {
+      res.json(result);
+    }).catch((err) => {
       res.json(err);
     });
   });

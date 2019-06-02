@@ -38,7 +38,10 @@
             </button>
           </div>
           <div class="modal-body text-center">
-            <div class="prevNotes"></div>
+            <div class="prevNotes">
+              <h2>Previous Notes:</h2>
+            </div>
+            {{#each stories}}
             <form method="POST" action="/saved/:id">
               <label for="noteHeader">Header:</label>
               <input class="form-group title" name="noteHeader">
@@ -46,8 +49,9 @@
               <label for="noteMessage">Message:</label>
               <textarea class="form-group body" name="noteMessage" rows="5"></textarea>
               <br>
-              <input type="submit" class="btn btn-primary saveNote" value="Save Note">
+              <input type="submit" class="btn btn-primary saveNote" value="Save Note" data-id="{{_id}}">
             </form>
+            {{/each}}
           </div>
           <div class="modal-footer">
           </div>
