@@ -1,16 +1,6 @@
 # PipPip_Newsio 
 ## Overview
-    PipPip_Newsio is a cheerio-powered news scraping app that interacts with MongoDB to bring the user the latest news. 
-    ..It allows the user to scrape for the latest articles and save articles that they don't wish to be deleted over prolonged use. ..It also allows the user to leave notes on each article sharing their thoughts and feelings about each story. 
-    ..Each article also contains a link to its site of origin.
-## Tech
- This app utilizes:
- * [MongoDB](https://www.mongodb.com/)
- * [Express](https://www.npmjs.com/package/express)
- * [Mongoose](https://www.npmjs.com/package/mongoose)
- * [Cheerio](https://www.npmjs.com/package/cheerio)
- * [Axios](https://www.npmjs.com/package/axios)
- * [Handlebars](https://www.npmjs.com/package/handlebars)
+PipPip_Newsio is a cheerio-powered news scraping app that interacts with MongoDB to bring the user the latest news. It allows the user to scrape for the latest articles and save articles that they don't wish to be deleted over prolonged use. It also allows the user to leave notes on each article sharing their thoughts and feelings about each story. Each article also contains a link to its site of origin.
 ## How to use
 
 Upon first visiting the site, the user is directed to the homepage
@@ -69,3 +59,11 @@ Finally, if the user has saved multiple articles and wishes to remove them all a
 Once the user has finished interacting with the saved articles page, they can navigate back to the home page to continue the news cycle if they so chose.
 
 ![all articles button](/assets/images/allart.jpg)
+## Tech
+ This app utilizes:
+ * [MongoDB](https://www.mongodb.com/)
+ * [Express](https://www.npmjs.com/package/express)
+ * [Mongoose](https://www.npmjs.com/package/mongoose)
+ * [Cheerio](https://www.npmjs.com/package/cheerio)
+ * [Axios](https://www.npmjs.com/package/axios)
+ * [Handlebars](https://www.npmjs.com/package/handlebars)
